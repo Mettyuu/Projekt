@@ -31,6 +31,7 @@ app.use(session({
 
 app.use((req, res, next) => {
     res.locals.cart = req.session.cart || [];
+    res.locals.currentPath = req.path;
     next();
 });
 

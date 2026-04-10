@@ -128,7 +128,7 @@ router.post('/cart/decrease/:id', (req, res) => {
     }
 });
 
-// Keress rá a Routes.js-ben erre a részre:
+//Keresés
 router.get('/search', async (req, res) => {
     try {
         const searchTerm = req.query.query;
