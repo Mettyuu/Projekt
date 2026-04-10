@@ -63,12 +63,19 @@
         </div>
     </div>
 
-    <div class="mt-4 d-flex justify-content-between">
-        <a href="/" class="btn btn-outline-secondary">Vásárlás folytatása</a>
-        <form action="/order/place" method="POST">
-            <button type="submit" class="btn btn-success btn-lg">Rendelés leadása</button>
-        </form>
-    </div>
+    <div class="mt-5 mb-3 d-flex justify-content-between align-items-center">
+    
+    <a href="/" class="btn btn-outline-secondary btn-lg d-inline-flex align-items-center justify-content-center px-4 hover-shrink">
+        <i class="bi bi-arrow-left me-2"></i> Vásárlás folytatása
+    </a>
+    
+    <form action="/order/place" method="POST" class="m-0">
+        <button type="submit" class="btn btn-success btn-lg d-inline-flex align-items-center justify-content-center px-4 shadow-sm hover-shrink">
+            Rendelés leadása <i class="bi bi-check-circle ms-2"></i>
+        </button>
+    </form>
+
+</div>
 <% } %>
 
 <%- include('layouts/footer') %>

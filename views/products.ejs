@@ -9,31 +9,50 @@
         </div>
     <% } else { %>
         <% products.forEach(function(product) { %>
-            <div class="col">
-                <div class="card h-100 shadow-sm hover-shrink">
-                    <a href="/product/<%= product._id %>" class="text-decoration-none text-dark">
-                        <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.name %>" style="height: 200px; object-fit: cover;">
-        
-                        <div class="card-body">
-                            <h5 class="card-title"><%= product.name %></h5>
-                            <p class="card-text text-muted"><%= product.description %></p>
-                            <h4 class="text-primary"><%= product.price %> Ft</h4>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm position-relative hover-shrink">
+
+                    <img src="<%= product.imageUrl %>" class="card-img-top p-3" alt="<%= product.name %>" style="height: 200px; width: 100%; object-fit: contain; background-color: #ffffff; border-bottom: 1px solid #eee;">
+
+                    <div class="card-body d-flex flex-column">
+
+                        <h5 class="card-title fw-bold"><%= product.name %></h5>
+                        <h6 class="card-subtitle mb-3 text-primary fw-bold"><%= product.price %> Ft</h6>
+                        <p class="card-text text-muted small"><%= product.description %></p>
+
+                        <div class="mt-auto">
+                            <hr class="my-3 text-muted">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <% if (product.stock > 0) { %>
+
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                            <i class="bi bi-check-circle"></i> Raktáron: <%= product.stock %> db
+                                        </span>
+
+                                        <% } else { %>
+
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">
+                                                <i class="bi bi-x-circle"></i> Elfogyott 
+                                            </span>
+
+                                            <% } %>
+                                        </div>
+
+                                        <form action="/cart/add/<%= product._id %>" method="POST" class="z-3 m-0">
+                                            <button type="submit" class="btn btn-primary rounded-pill px-3 shadow-sm" <%= product.stock === 0 ? 'disabled' : '' %>>
+                                                <i class="bi bi-cart-plus"></i>
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/product/<%= product._id %>" class="stretched-link"></a>
                         </div>
-                    </a>
-    
-                        <div class="card-footer bg-white border-top-0">
-                            <% if (product.stock > 0) { %>
-                                <span class="badge bg-success mb-2">Raktáron: <%= product.stock %> db</span>
-                                <form action="/cart/add/<%= product._id %>" method="POST" class="d-inline">
-                                    <button class="btn btn-primary btn-lg">Kosárba teszem</button>
-                                </form>
-                            <% } else { %>
-                                <span class="badge bg-danger mb-2">Kifogyott</span>
-                                <button class="btn btn-secondary w-100" disabled>Nem elérhető</button>
-                            <% } %>
-                        </div>
-                </div>
-            </div>
+                    </div>
+
         <% }) %>
     <% } %>
 </div>
