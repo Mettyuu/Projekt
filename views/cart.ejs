@@ -1,0 +1,74 @@
+<%- include('layouts/header') %>
+
+<h1 class="mb-4">Kosarad tartalma</h1>
+
+<% if (cart.length === 0) { %>
+    <div class="alert alert-info">
+        A kosarad még üres. <a href="/" class="alert-link">Nézz szét a termékeink között!</a>
+    </div>
+<% } else { %>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Termék</th>
+                        <th>Ár</th>
+                        <th>Mennyiség</th>
+                        <th>Részösszeg</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% cart.forEach(item => { %>
+                        <tr>
+                            <td class="align-middle">
+                                <img src="<%= item.imageUrl %>" style="width: 50px; height: 50px; object-fit: cover;" class="rounded me-2">
+                                <%= item.name %>
+                            </td>
+                            <td class="align-middle"><%= item.price %> Ft</td>
+
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    <form action="/cart/decrease/<%= item.id %>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" <%= item.quantity <= 1 ? 'disabled' : '' %>>-</button>
+                                    </form>
+        
+                                    <span class="mx-3 fw-bold"><%= item.quantity %></span>
+        
+                                    <form action="/cart/increase/<%= item.id %>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" 
+                                            <% if (item.quantity >= item.stock) { %> disabled title="Nincs több raktáron" <% } %> >+
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+
+                            <td class="align-middle fw-bold"><%= item.price * item.quantity %> Ft</td>
+                            <td class="text-end align-middle">
+                                <form action="/cart/remove/<%= item.id %>" method="POST" class="d-inline">
+                                    <button class="btn btn-sm btn-outline-danger">Eltávolítás</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <td colspan="3" class="text-end fw-bold">Végösszeg:</td>
+                        <td colspan="2" class="fw-bold text-primary fs-5"><%= total %> Ft</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="/" class="btn btn-outline-secondary">Vásárlás folytatása</a>
+        <form action="/order/place" method="POST">
+            <button type="submit" class="btn btn-success btn-lg">Rendelés leadása</button>
+        </form>
+    </div>
+<% } %>
+
+<%- include('layouts/footer') %>

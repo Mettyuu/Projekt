@@ -1,0 +1,54 @@
+<%- include('layouts/header') %>
+
+<div class="row mt-4">
+    <div class="col-md-6 mb-4">
+        <img src="<%= product.imageUrl %>" class="img-fluid rounded shadow-sm w-100" alt="<%= product.name %>" style="max-height: 500px; object-fit: cover;">
+    </div>
+    
+    <div class="col-md-6">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Főoldal</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%= product.category %></li>
+            </ol>
+        </nav>
+        
+        <h1 class="display-5 fw-bold"><%= product.name %></h1>
+        <h2 class="text-primary mb-4"><%= product.price %> Ft</h2>
+        
+        <p class="lead"><%= product.description %></p>
+        
+        <hr class="my-4">
+        
+        <div class="d-flex align-items-center mb-4">
+            <% if (product.stock > 0) { %>
+                <span class="badge bg-success fs-6 me-3">Raktáron: <%= product.stock %> db</span>
+                <form action="/cart/add/<%= product._id %>" method="POST" class="d-inline">
+                    <button class="btn btn-primary btn-lg">Kosárba teszem</button>
+                </form>
+            <% } else { %>
+                <span class="badge bg-danger fs-6 me-3">Kifogyott</span>
+                <button class="btn btn-secondary btn-lg" disabled>Nem elérhető</button>
+            <% } %>
+        </div>
+
+        <div class="mt-5 p-3 bg-light border text-end rounded">
+            <span class="text-muted small me-3">Adminisztrátori műveletek:</span>
+
+            <a href="/product/<%= product._id %>/edit" class="btn btn-warning btn-sm me-2">
+                Termék szerkesztése
+            </a>
+            
+            <form action="/product/<%= product._id %>/delete" method="POST" class="d-inline" onsubmit="return confirm('Biztosan véglegesen törölni szeretnéd ezt a terméket?');">
+                <button type="submit" class="btn btn-danger btn-sm">Termék törlése</button>
+            </form>
+        </div>
+        
+        <div class="text-muted small">
+            <p class="mb-1"><strong>Azonosító:</strong> <%= product._id %></p>
+            <p class="mb-0"><strong>Feltöltve:</strong> <%= product.createdAt.toLocaleDateString('hu-HU') %></p>
+        </div>
+    </div>
+</div>
+
+<%- include('layouts/footer') %>

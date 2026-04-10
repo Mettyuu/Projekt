@@ -1,0 +1,51 @@
+<%- include('layouts/header') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="card-title mb-0">Termék szerkesztése</h3>
+            </div>
+            <div class="card-body">
+                <form action="/product/<%= product._id %>/edit" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Termék neve</label>
+                        <input type="text" class="form-control" name="name" value="<%= product.name %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Leírás</label>
+                        <textarea class="form-control" name="description" rows="3" required><%= product.description %></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ár (Ft)</label>
+                            <input type="number" class="form-control" name="price" value="<%= product.price %>" min="0" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Készlet (db)</label>
+                            <input type="number" class="form-control" name="stock" value="<%= product.stock %>" min="0" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kategória</label>
+                        <select class="form-select" name="category" required>
+                            <% ['Monitor', 'Billentyűzet', 'Egér', 'Fejhallgató', 'Egyéb'].forEach(cat => { %>
+                                <option value="<%= cat %>" <%= product.category === cat ? 'selected' : '' %>><%= cat %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Kép URL</label>
+                        <input type="text" class="form-control" name="imageUrl" value="<%= product.imageUrl %>">
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="/product/<%= product._id %>" class="btn btn-outline-secondary">Mégse</a>
+                        <button type="submit" class="btn btn-warning">Módosítások mentése</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layouts/footer') %>

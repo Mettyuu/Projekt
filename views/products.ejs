@@ -1,0 +1,41 @@
+<%- include('layouts/header') %>
+
+<h1 class="mb-4"><%= pageTitle %></h1>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <% if (products.length === 0) { %>
+        <div class="col-12">
+            <div class="alert alert-info">Jelenleg nincs megjeleníthető termék.</div>
+        </div>
+    <% } else { %>
+        <% products.forEach(function(product) { %>
+            <div class="col">
+                <div class="card h-100 shadow-sm hover-shrink">
+                    <a href="/product/<%= product._id %>" class="text-decoration-none text-dark">
+                        <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.name %>" style="height: 200px; object-fit: cover;">
+        
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.name %></h5>
+                            <p class="card-text text-muted"><%= product.description %></p>
+                            <h4 class="text-primary"><%= product.price %> Ft</h4>
+                        </div>
+                    </a>
+    
+                        <div class="card-footer bg-white border-top-0">
+                            <% if (product.stock > 0) { %>
+                                <span class="badge bg-success mb-2">Raktáron: <%= product.stock %> db</span>
+                                <form action="/cart/add/<%= product._id %>" method="POST" class="d-inline">
+                                    <button class="btn btn-primary btn-lg">Kosárba teszem</button>
+                                </form>
+                            <% } else { %>
+                                <span class="badge bg-danger mb-2">Kifogyott</span>
+                                <button class="btn btn-secondary w-100" disabled>Nem elérhető</button>
+                            <% } %>
+                        </div>
+                </div>
+            </div>
+        <% }) %>
+    <% } %>
+</div>
+
+<%- include('layouts/footer') %>
