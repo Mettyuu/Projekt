@@ -36,7 +36,6 @@
                 <a href="/cart" class="btn btn-outline-light position-relative rounded-pill"> 
                     <i class="bi bi-cart me-2 "> Kosár</i>
                     <% if (cart && cart.length > 0) { 
-                        //Összeadjuk a darabszámokat a badge-hez
                         const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
                     %>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

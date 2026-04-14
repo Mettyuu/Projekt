@@ -7,7 +7,6 @@ export async function connectDB() {
         await mongoose.connect(process.env.MONGODB_URI);
         console.log("Sikeres kapcsolódás az adatbázishoz!");
 
-        //await mongoose.connection.collection('products').drop();
         await initaizeProduct();
 
         process.on("SIGINT", async () => {

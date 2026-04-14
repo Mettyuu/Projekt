@@ -1,5 +1,5 @@
 
-/* Kártyák lebegő (hover) animációja */
+/* Kártyák hover animációja */
 .hover-shrink {
     transition: transform 0.2s ease-in-out;
 }
@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 
-/* Főoldali termékkártyák képének beállítása */
+/* Főoldali képek beállítása */
 .product-card-img {
     height: 200px;
     width: 100%;
@@ -18,7 +18,7 @@
     border-bottom: 1px solid #eee;
 }
 
-/* Termék részletes adatlapján lévő kép beállítása */
+/* Termék adatlapján lévő kép beállítása */
 .product-detail-img {
     height: 500px;
     width: 100%;
@@ -27,7 +27,7 @@
     border-bottom: 1px solid #eee;
 }
 
-/* Kosárban lévő kis termékképek beállítása */
+/* Kosárban lévő termékképek beállítása */
 .cart-item-img {
     width: 50px;
     height: 50px;
